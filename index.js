@@ -1,17 +1,16 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import { getLatestClientData } from './gmail.js';
 import parseEmail from './parser.js';
 import { fillPoliceForm } from './formFiller.js';
 
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.text());
 
 app.post('/process', async (req, res) => {
   try {
-    const emailBody = req.body;
+    const emailBody = await getLatestClientData();
     const clientData = parseEmail(emailBody);
     console.log('📦 Parsed Data:', clientData);
 
@@ -25,3 +24,4 @@ app.post('/process', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
