@@ -3,7 +3,7 @@ import * as firefox from 'selenium-webdriver/firefox.js';
 
 export async function fillPoliceForm(data) {
   const options = new firefox.Options()
-    .headless()
+    .addArguments('-headless') // ✅ Use this instead of .headless()
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage');
 
@@ -54,4 +54,5 @@ export async function fillPoliceForm(data) {
     await driver.quit();
   }
 }
+
 
