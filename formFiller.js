@@ -1,10 +1,10 @@
-const { Builder, By } = require('selenium-webdriver');
-const firefox = require('selenium-webdriver/firefox');
+import { Builder, By } from 'selenium-webdriver';
+import firefox from 'selenium-webdriver/firefox';
 
-async function fillPoliceForm(data) {
+export async function fillPoliceForm(data) {
   const driver = await new Builder()
     .forBrowser('firefox')
-    .setFirefoxOptions(new firefox.Options()) // Add .headless() if needed
+    .setFirefoxOptions(new firefox.Options()) // Add .headless() here if needed
     .build();
 
   const safeSend = async (id, value) => {
@@ -22,6 +22,7 @@ async function fillPoliceForm(data) {
 
   try {
     await driver.get('https://sede.policia.gob.es/Tasa790_012/ImpresoRellenar');
+
     await safeSend('nif', data.nif);
     await safeSend('nombre', data.nombre);
     await safeSend('calle', data.calle);
@@ -49,5 +50,4 @@ async function fillPoliceForm(data) {
   }
 }
 
-module.exports = { fillPoliceForm };
 
