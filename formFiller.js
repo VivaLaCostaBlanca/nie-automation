@@ -1,10 +1,15 @@
 import { Builder, By } from 'selenium-webdriver';
-import * as firefox from 'selenium-webdriver/firefox.js'; // ✅ ESM-compatible
+import * as firefox from 'selenium-webdriver/firefox.js';
 
 export async function fillPoliceForm(data) {
+  const options = new firefox.Options()
+    .headless()
+    .addArguments('--no-sandbox')
+    .addArguments('--disable-dev-shm-usage');
+
   const driver = await new Builder()
     .forBrowser('firefox')
-    .setFirefoxOptions(new firefox.Options()) // Add .headless() if needed
+    .setFirefoxOptions(options)
     .build();
 
   const safeSend = async (id, value) => {
