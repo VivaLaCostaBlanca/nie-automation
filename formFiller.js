@@ -1,10 +1,10 @@
 import { Builder, By } from 'selenium-webdriver';
-import firefox from 'selenium-webdriver/firefox';
+import * as firefox from 'selenium-webdriver/firefox.js'; // ✅ ESM-compatible
 
 export async function fillPoliceForm(data) {
   const driver = await new Builder()
     .forBrowser('firefox')
-    .setFirefoxOptions(new firefox.Options()) // Add .headless() here if needed
+    .setFirefoxOptions(new firefox.Options()) // Add .headless() if needed
     .build();
 
   const safeSend = async (id, value) => {
@@ -42,12 +42,11 @@ export async function fillPoliceForm(data) {
     }
 
     console.log('✅ Form filled. Please complete CAPTCHA manually.');
-    await driver.sleep(180000); // 3 minutes
+    await driver.sleep(180000); // Wait 3 minutes
   } catch (err) {
     console.error('❌ Error filling form:', err);
   } finally {
     await driver.quit();
   }
 }
-
 
