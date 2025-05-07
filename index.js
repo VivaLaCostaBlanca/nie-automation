@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import parseEmail from './parser.js';
-import fillForm from './formFiller.js'; // <-- this matches your actual filename
+import { fillPoliceForm } from './formFiller.js';
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.post('/process', async (req, res) => {
     const clientData = parseEmail(emailBody);
     console.log('📦 Parsed Data:', clientData);
 
-    await fillPoliceForm(clientData); // this doesn't return fileUrl yet
+    await fillPoliceForm(clientData);
     res.status(200).send('✅ Police form filled.');
   } catch (error) {
     console.error('❌ Error:', error);
