@@ -1,13 +1,12 @@
-import { Builder, By } from 'selenium-webdriver';
-import firefox from 'selenium-webdriver/firefox.js';
+const { Builder, By } = require('selenium-webdriver');
+const firefox = require('selenium-webdriver/firefox');
 
-export async function fillPoliceForm(data) {
+async function fillPoliceForm(data) {
   const driver = await new Builder()
     .forBrowser('firefox')
     .setFirefoxOptions(new firefox.Options()) // Add .headless() if needed
     .build();
 
-  // Helper to safely send input if value exists
   const safeSend = async (id, value) => {
     if (value) {
       try {
@@ -23,7 +22,6 @@ export async function fillPoliceForm(data) {
 
   try {
     await driver.get('https://sede.policia.gob.es/Tasa790_012/ImpresoRellenar');
-
     await safeSend('nif', data.nif);
     await safeSend('nombre', data.nombre);
     await safeSend('calle', data.calle);
@@ -35,7 +33,6 @@ export async function fillPoliceForm(data) {
     await safeSend('codigoPostal', data.codigoPostal);
     await safeSend('localidad', data.localidad);
 
-    // Tasa and payment method are static options
     try {
       await driver.findElement(By.id('tasa21Input')).click();
       await driver.findElement(By.id('efectivo')).click();
@@ -51,3 +48,6 @@ export async function fillPoliceForm(data) {
     await driver.quit();
   }
 }
+
+module.exports = { fillPoliceForm };
+
