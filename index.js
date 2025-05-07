@@ -1,8 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const parseEmail = require('./parser'); // Make sure parser.js also uses module.exports
-const { fillPoliceForm } = require('./formFiller');
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import parseEmail from './parser.js';
+import fillForm from './formFiller.js'; // <-- this matches your actual filename
 
 dotenv.config();
 
